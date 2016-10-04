@@ -1,0 +1,241 @@
+<ul class="nav nav-tabs">
+  <li class="active col-sm-3"><a data-toggle="tab" href="#/list">Reservations</a></li>
+  <li class="col-sm-3"><a data-toggle="tab" href="#/desk">Seating</a></li>
+  <li class="col-sm-3"><a data-toggle="tab" href="#/profile">Profile</a></li>
+  <li class="col-sm-3"><a data-toggle="tab" href="#/connect">Connect</a></li>
+</ul>   
+
+    <div class="col-sm-3 col-xs-12 col-lg-3">
+      <form class="form-search">
+          <div class="input-group">
+              <input type="text" class="form-control " placeholder="Search..." ng-model="query">
+              <span class="input-group-btn">
+                  <button type="submit" >Search</button>
+              </span>
+          </div>
+      </form>
+    </div>
+<table class="table table-hover" ng-show="reservations.length >= 1" >
+  <thead>
+    <tr>
+      <th ng-repeat="header in headers"><a href="#" ng-click="columnSort.sortColumn=headers[$index];columnSort.reverse=!columnSort.reverse">{{ headers[$index] | capitalise }}</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="reservation in reservations |  orderBy:columnSort.sortColumn:columnSort.reverse | filter: query">
+        <td>{{ reservation.confirmNo }}</td>
+        <td>{{ reservation.name }} </td>
+        <td>{{ reservation.phoneNo }}</td>
+        <td>
+          <a class="btn btn-info" ng-click="display(reservation)"><i class="glyphicon-eye-open glyphicon"></i> View more</a>
+          <a class="btn btn-warning" ng-click="edit(reservation)"><i class="glyphicon-pencil glyphicon"></i> Edit</a>
+          <!--a class="btn btn-primary" href="#" ng-click="distribute(reservation)"><i class="glyphicon glyphicon-glass"></i> Distribute desk</a-->
+          <a class="btn btn-danger" href="#" ng-click="del(reservation)"><i class="glyphicon-trash glyphicon"></i> Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-info" ng-click="add()"><i class="glyphicon-plus glyphicon"></i>Add new reservation </a>
+  <a class="btn btn-cancel" href="#/guest">Log out</a>
+  <hr>
+
+  <script type="text/ng-template" id="add_res_model" />
+   <div modal="add_res">
+      <div class="modal-header">
+          <h3>Add</h3>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-horizontal" ng-model="addForm">
+          <div class="form-group">
+            <label for="inputDate" class="col-sm-2 control-label">Date</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputDate" ng-model="form.add.date" name="date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputTime">Time</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputTime" ng-model="form.add.time" name="time">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputName">Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputName" ng-model="form.add.name" name="name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputPhoneNo">Phone</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputPhoneNo" ng-model="form.add.phoneNo" name="phoneNo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputEmail">Email</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputEmail" ng-model="form.add.email" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputPeopleNo">peopleNo</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputPeopleNo" ng-model="form.add.peopleNo" name="peopleNo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputAdditional">Other</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputAdditional" ng-model="form.add.additional" name="additional">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button ng-click="add_res()" class="btn btn-info"><i class="icon-plus icon-white"></i> Add </button>
+          <button class="btn btn-warning cancel" ng-click="cancel()">Cancel</button>
+      </div>
+   </div>
+  </script>
+
+
+  <script type="text/ng-template" id="display_res_model" />
+    <div modal="display_res">
+      <div class="modal-header">
+          <h3>{{ reservation.name }}</h3>
+      </div>
+      <div class="modal-body">
+
+        <dl class="dl-horizontal">
+          <!--dt ng-repeat="header in allheaders ">{{ header }}:</dt>
+            <dd>{{ reservation.confirmNo || " - "}}</dd>
+            <dd>{{ reservation.date || " - "}}</dd>
+            <dd>{{ reservation.time || " - "}}</dd>
+            <dd>{{ reservation.name || " - "}}</dd>
+            <dd>{{ reservation.phoneNo || " - "}}</dd>
+            <dd>{{ reservation.email || " - "}}</dd>
+            <dd>{{ reservation.peopleNo || " - "}}</dd>
+            <dd>{{ reservation.deskNo || " Still not distribute "}}</dd>
+            <dd>{{ reservation.additional || " - "}}</dd-->
+            <dd>Confirm#: {{ reservation.confirmNo || " - "}}</dd>
+            <dd>Date: {{ reservation.date || " - "}}</dd>
+            <dd>Time: {{ reservation.time || " - "}}</dd>
+            <dd>Name: {{ reservation.name || " - "}}</dd>
+            <dd>Phone#: {{ reservation.phoneNo || " - "}}</dd>
+            <dd>E-mail: {{ reservation.email || " - "}}</dd>
+            <dd>Party Size: {{ reservation.peopleNo || " - "}}</dd>
+            <dd>Desk#: {{ reservation.deskNo || " Still not distribute "}}</dd>
+            <dd>Others: {{ reservation.additional || " - "}}</dd>
+        </dl>
+
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-warning cancel" ng-click="close()">Close</button>
+      </div>
+    </div>
+  </script>
+
+
+  <script type="text/ng-template" id="edit_res_model" />
+    <div modal="edit_res">
+      <div class="modal-header">
+          <h3>Edit - {{ name }}</h3>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-horizontal" ng-model="addForm">
+          <div class="form-group">
+            <label for="inputDate" class="col-sm-2 control-label">Date</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputDate" ng-model="form.edit.date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputTime">Time</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputTime" ng-model="form.edit.time">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputName">Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputName" ng-model="form.edit.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputPhoneNo">Phone#</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputPhoneNo" ng-model="form.edit.phoneNo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputEmail">Email</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputEmail" ng-model="form.edit.email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputPeopleNo">Desk#</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputPeopleNo" ng-model="form.edit.deskNo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputPeopleNo">Party Size</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputPeopleNo" ng-model="form.edit.peopleNo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="inputPeopleNo">Others</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputPeopleNo" ng-model="form.edit.additional">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button ng-click="edit_res()" class="btn btn-info"><i class="icon-plus icon-white"></i> Change Reservation</button>
+          <button class="btn btn-warning cancel" ng-click="cancel()">Cancel</button>
+      </div>
+      </div>
+    </div>
+  </script>
+
+  <!--script type="text/ng-template" id="distribute_desk_model" />
+  <div mode="ditribute_desk">
+  <div class="modal-header">
+    <h3>Distrbute Desk</h3>  
+  </div>
+  <div class="book-tbl modal-body">
+    
+    <ul>
+      <li><p>Confirm# :{{reservation.confirmNo}}</p><br></li>
+      <li><p>Enter a desk number:</p></li>
+      <li><input type="text" name="desknumber" ng-model="deskNo"/></li>
+      <li ng-repeat="role in roles">
+      <div>
+        <label class="labelstyle">{{role}}</label>
+      </div>
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+  <button ng-click="distributedesk()" class="btn btn-info"><i class="icon-plus icon-white"></i>Distrbute Desk</button>
+  <button class="btn btn-warning cancel" ng-click="cancel()">Cancel</button>
+  </div>
+  </div>
+  </script-->
+
+  <script type="text/ng-template" id="del_res_model" />
+    <div modal="del_res">
+      <div class="modal-header">
+          <h3>Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        Are you sure you'd like to delete {{ name }}?
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger ok" ng-click="del_res()">OK</button>
+        <button class="btn btn-warning cancel" ng-click="cancel()">Cancel</button>
+      </div>
+    </div>
+  </script>

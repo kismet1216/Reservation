@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="reservations">
+<head>
+    <title>Reservation</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/table.css">
+    <link rel="stylesheet" href="style/custom.css">
+</head>
+<body>
+<script src="/components/angular/angular.js"></script>
+<script src="/components/angular/angular.min.js"></script>
+<script src="/components/angular-route/angular-route.js"></script>
+<script src="/components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/components/jquery/dist/jquery.js"></script>
+<script src="/components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/factory.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/des.js"></script>
+<script src="js/services.js"></script>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Restaurant</a>
+    </div>
+    <div>
+      <div class="collapse navbar-collapse" id="myNavbar" ng-controller="SearchCtrl">
+        <div class="search">
+          <input type="text" class="form-control input-sm" maxlength="64" placeholder="Enter your confirm#" ng-model="confirmNo"/>
+          <button type="submit" class="btn btn-primary btn-sm" ng-click="search()" id="search">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container container-size">
+<div ng-view></div>
+</div>
+
+
+<script type="text/ng-template" id="display_res_model" />
+    <div modal="display_res">
+      <div class="modal-header" >
+          <h3>{{ reservation.name }}</h3>
+      </div>
+      <div class="modal-body">
+
+        <dl class="dl-horizontal">
+          <!--dt ng-repeat="header in allheaders ">{{ header }}:</dt-->
+            <dd>Confirm#: {{ reservation.confirmNo || " - "}}</dd>
+            <dd>Date: {{ reservation.date || " - "}}</dd>
+            <dd>Time: {{ reservation.time || " - "}}</dd>
+            <dd>Name: {{ reservation.name || " - "}}</dd>
+            <dd>Phone#: {{ reservation.phoneNo || " - "}}</dd>
+            <dd>E-mail: {{ reservation.email || " - "}}</dd>
+            <dd>Party Size: {{ reservation.peopleNo || " - "}}</dd>
+            <dd>Desk#: {{ reservation.deskNo || " Still not distribute "}}</dd>
+            <dd>Others: {{ reservation.additional || " - "}}</dd>
+        </dl>
+
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-warning cancel" ng-click="close()">Close</button>
+      </div>
+    </div>
+  </script>
+</body>
+</html>

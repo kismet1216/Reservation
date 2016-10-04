@@ -1,0 +1,31 @@
+<ul class="nav nav-tabs">
+  <li class="col-sm-3"><a data-toggle="tab" href="#/list">Reservations</a></li>
+  <li class="col-sm-3"><a data-toggle="tab" href="#/desk">Seating</a></li>
+  <li class="active col-sm-3"><a data-toggle="tab" href="#/profile">Profile</a></li>
+  <li class="col-sm-3" ><a data-toggle="tab" href="#/connect">Connect</a></li>
+</ul>   
+
+<div>
+<h2>Profiles</h2>
+	<div class="col-sm-5">
+	<ul>
+		<li><p>Name: {{name}}</p></li>
+		<li><p>Location: {{location}}</p></li>
+		<li><p>Phone#: {{phone}}</p></li>
+		<li><p>E-mail: {{email}}</p></li>
+	</ul>
+	
+	</div>
+	<div class="col-sm-7">
+	<ul>
+		<li><label>Name: </label><input type="text" name="name" ng-model="cname"/></li>
+		<li><label>Location: </label><input type="text" name="name" ng-model="clocation"/></li>
+		<li><label>Phone#: </label><input type="text" name="name" ng-model="cphone"/></li>
+		<li><label>E-mail: </label><input type="text" name="name" ng-model="cemail"/></li>
+		<li><button class="btn btn-info" ng-click="change()">Confirm</button>
+	</ul>
+	</div>
+</div>
+
+<a class="btn btn-cancel" href="#/guest">Log out</a>
+<hr>

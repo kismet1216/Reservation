@@ -1,0 +1,68 @@
+body {
+  background: #2A3C4E; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #2A3C4E , #67727D); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #2A3C4E, #67727D); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #2A3C4E, #67727D); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #2A3C4E , #67727D); /* Standard syntax */
+}
+
+.search {
+    padding: 10px 0;
+    width: 230px;
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    float: left;
+    line-height: 22px;
+}
+
+    .search input {
+        position: absolute;
+        width: 0px;
+        float: left;
+        margin-left: 210px;
+        transition: all 0.7s ease-in-out;
+        height: 30px;
+        line-height: 18px;
+        padding: 0 2px 0 2px;
+        border-radius:1px;
+    }
+
+        .search:hover input, .search input:focus {
+            width: 200px;
+            margin-left: 0px;
+        }
+
+#search {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    border-radius:1px;
+}
+
+.tab-page {
+    border:1px solid black;
+    background:white;
+    padding-top:100px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 100px;
+}
+
+.container-size {
+    float: inherit;
+    height: 800px;
+    width: 1000px;
+    display: inline-block;
+    background: #ffffff;
+    width: 1000px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 50px 0px #000000;
+    padding-top:60px;
+    width: 70%;
+    height: 100%;
+    display: table;
+}
+
+.required { color: red;}
